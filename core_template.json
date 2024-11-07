@@ -59,6 +59,19 @@
         "script/sshd.sh"
       ],
       "type": "shell"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo '{{ user `ssh_password` }}' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'",
+      "inline": [
+        "apt-get install -y ansible",
+        "echo '{{user `ssh_username`}} ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+      ]
+    },
+    {
+      "type": "ansible-local",
+      "command": "ANSIBLE_NOCOWS=1 ANSIBLE_FORCE_COLOR=1 PYTHONUNBUFFERED=1 ansible-playbook",
+      "playbook_file": "{{user `ansible_dir`}}/playbooks/linux-mint-dev.yml"
     }
   ],
   "variables": {
@@ -68,6 +81,7 @@
     "ssh_fullname": "vagrant",
     "ssh_password": "vagrant",
     "ssh_username": "vagrant",
+    "ansible_dir": "ansible",
 
     "_comment": "Variables below should be overridden in template",
     "boot_command_prefix": "TBD",
