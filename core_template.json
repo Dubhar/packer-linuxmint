@@ -24,8 +24,6 @@
         "noprompt ",
         "-- <enter>"
       ],
-      "gfx_controller": "vmsvga",
-      "gfx_vram_size": "32",
       "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
       "post_shutdown_delay": "30s",
       "disk_size": "{{ user `disk_size` }}",
