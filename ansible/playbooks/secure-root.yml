@@ -1,0 +1,9 @@
+---
+- name: Lock the root account password
+  user:
+    name: root
+    password_lock: true
+- name: Set root shell to nologin
+  user:
+    name: root
+    shell: /sbin/nologin

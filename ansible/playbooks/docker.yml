@@ -1,0 +1,32 @@
+---
+- name: Install required packages for apt to use HTTPS, needed for Docker
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: present
+- name: Add Docker APT repository for Linux Mint (uses Ubuntu base, see linuxmint.com for mapping)
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: [deb]
+    uris: "https://download.docker.com/linux/ubuntu"
+    signed_by: "https://download.docker.com/linux/ubuntu/gpg"
+    suites: [noble]
+    components: [stable]
+    state: present
+    enabled: yes
+- name: Install Docker packages
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+    update_cache: yes
+- name: Ensure Docker service is running
+  service:
+    name: docker
+    state: started
+    enabled: true
