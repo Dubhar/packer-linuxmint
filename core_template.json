@@ -54,17 +54,6 @@
       ]
     }
   ],
-  "post-processors": [
-    [
-      {
-        "compression_level": "9",
-        "keep_input_artifact": false,
-        "output": "box/{{.Provider}}/{{user `vm_name`}}-{{user `version`}}.box",
-        "type": "vagrant",
-        "vagrantfile_template": "{{ user `vagrantfile_template` }}"
-      }
-    ]
-  ],
   "provisioners": [
     {
       "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
