@@ -1,4 +1,18 @@
 {
+  "variables": {
+    "headless": "false",
+    "ssh_password": "vagrant",
+    "ssh_username": "vagrant",
+    "ansible_dir": "ansible",
+    "scripts_dir": "script",
+    "memsize": "1024",
+    "numcpus": "2",
+    "disk_size": "20000",
+    "iso_checksum": "sha256:7a04b54830004e945c1eda6ed6ec8c57ff4b249de4b331bd021a849694f29b8f",
+    "iso_url": "https://www.mirrorservice.org/sites/www.linuxmint.com/pub/linuxmint.com/stable/22/linuxmint-22-cinnamon-64bit.iso",
+    "version": "1.1.2",
+    "vm_name": "mint-cinnamon-22"
+  },
   "builders": [
     {
       "vm_name": "{{user `vm_name`}}",
@@ -14,9 +28,9 @@
       "ssh_wait_timeout": "10000s",
       "headless": "{{ user `headless` }}",
       "boot_command": [
-        "{{ user `boot_command_prefix` }}",
+        "<esc><wait>",
         "/casper/vmlinuz ",
-        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed` }} ",
+        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
         "boot=casper ",
         "initrd=/casper/initrd.lz ",
         "debug-ubiquity ",
@@ -74,27 +88,5 @@
       "playbook_file": "{{user `ansible_dir`}}/playbooks/linux-mint-dev.yml",
       "playbook_dir": "{{user `ansible_dir`}}/playbooks"
     }
-  ],
-  "variables": {
-    "cloud_token": "{{env `VAGRANT_CLOUD_TOKEN`}}",
-    "headless": "false",
-    "hostname": "vagrant",
-    "ssh_fullname": "vagrant",
-    "ssh_password": "vagrant",
-    "ssh_username": "vagrant",
-    "ansible_dir": "ansible",
-
-    "_comment": "Variables below should be overridden in template",
-    "boot_command_prefix": "TBD",
-    "box_tag": "TBD",
-    "disk_size": "TBD",
-    "iso_checksum_type": "TBD",
-    "iso_checksum": "TBD",
-    "iso_url": "TBD",
-    "preseed": "TBD",
-    "vagrantfile_template": "TBD",
-    "version": "TBD",
-    "version_description": "TBD",
-    "vm_name": "TBD"
-  }
+  ]
 }
